@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id        Int       @id @default(autoincrement())
+  nome      String
+  email     String    @unique
+  telefone  String
+  senha     String
+  tipo      String    @default("CLIENTE")
+  cpf       String?   @unique @db.VarChar(14)
+  createdAt DateTime? @default(now()) @db.Timestamp(6)
+  updatedAt DateTime? @default(now()) @updatedAt @db.Timestamp(6)
+  pedidos   Pedido[]
+
+  @@map("Usuario")
+}
+
+model Produto {
+  id          Int              @id @default(autoincrement())
+  nome        String           @db.VarChar(255)
+  descricao   String?
+  preco       Decimal          @db.Decimal(10, 2)
+  quantidade  Int?             @default(0)
+  imagem      String?
+  marca       String           @default("SemMarca") @db.VarChar(100)
+  created_at  DateTime?        @default(now()) @db.Timestamp(6)
+  itens       PedidoProduto[]
+}
+
+model Pedido {
+  id        Int             @id @default(autoincrement())
+  usuarioId Int
+  status    String          @default("PENDENTE")
+  createdAt DateTime        @default(now())
+  usuario   Usuario         @relation(fields: [usuarioId], references: [id])
+  itens     PedidoProduto[]
+}
+
+model PedidoProduto {
+  id         Int      @id @default(autoincrement())
+  pedidoId   Int
+  produtoId  Int
+  quantidade Int
+
+  pedido     Pedido   @relation(fields: [pedidoId], references: [id])
+  produto    Produto  @relation(fields: [produtoId], references: [id])
+}
+
+enum Tipo {
+  GERENTE
+  CLIENTE
+}
