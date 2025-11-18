@@ -8,6 +8,10 @@ app.use(cors());
 app.use(express.json());
 app.use(routes);
 
+app.get('/', (req, res) => {
+  res.send('API está funcionando!');
+});
+
 app.listen(5000, () => {
   console.log('API executando em http://localhost:5000');
 });
