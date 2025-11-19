@@ -1,0 +1,813 @@
+type: collection.insomnia.rest/5.0
+name: Scratch Pad
+meta:
+  id: wrk_scratchpad
+  created: 1756812723826
+  modified: 1756812723826
+  description: ""
+collection:
+  - name: Pizzaria
+    meta:
+      id: fld_30aa6c7e977d444782dbdd706e13e160
+      created: 1763573337955
+      modified: 1763573337955
+      sortKey: -1763573337955
+      description: ""
+    children:
+      - name: Local
+        meta:
+          id: fld_ce51e3536b7d4f2b94ba00719c5985c2
+          created: 1763495063607
+          modified: 1763573358282
+          sortKey: -1763573339902
+          description: ""
+        children:
+          - url: " http://localhost:5000"
+            name: TESTE
+            meta:
+              id: req_8f3db0b6d9914d708577adacf213fe29
+              created: 1763491328896
+              modified: 1763495076090
+              isPrivate: false
+              description: ""
+              sortKey: -1763495072206
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/12.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - name: USUARIO
+            meta:
+              id: fld_f776c2edafc94ca09b9578009e2e8e56
+              created: 1763495044321
+              modified: 1763495160237
+              sortKey: -1763495072106
+              description: ""
+            children:
+              - url: http://localhost:5000/usuarios
+                name: READ
+                meta:
+                  id: req_e8b1295f12a347adb992289c57f2abb4
+                  created: 1763492340671
+                  modified: 1763573296579
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1763495089046
+                method: GET
+                body:
+                  mimeType: application/json
+                  text: ""
+                headers:
+                  - name: Content-Type
+                    value: application/json
+                  - name: User-Agent
+                    value: insomnia/12.0.0
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: http://localhost:5000/usuarios
+                name: CREATE
+                meta:
+                  id: req_0765cdc040f64da8b647433b94f607b4
+                  created: 1763492480764
+                  modified: 1763561022311
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1763495088946
+                method: POST
+                body:
+                  mimeType: application/json
+                  text: |-
+                    {
+                    	"nome":"Maria Luiza ",
+                    	"email":"maria@gmail.com",
+                    	"telefone":"190000000",
+                    	"senha":"marilu123",
+                    	"tipo":"GERENTE",
+                    	"cpf":"111.000.000.00"
+                    }
+                headers:
+                  - name: Content-Type
+                    value: application/json
+                  - name: User-Agent
+                    value: insomnia/12.0.0
+                authentication:
+                  type: bearer
+                  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJiZWNhMTIzQGdtYWlsLmNvbSIsInRpcG8iOiJDTElFTlRFIiwiaWF0IjoxNzYzNDk2MzM4LCJleHAiOjE3NjM1MDM1Mzh9.ysgAcWLiDZC2sThAVoCxk1c5OosGYtQXQRLsA8PEtZY
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: http://localhost:5000/login
+                name: LOGIN
+                meta:
+                  id: req_4fdf8bb59f3b4a76adf38fddc22f58f6
+                  created: 1763573243330
+                  modified: 1763573263994
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1763495084761
+                method: POST
+                body:
+                  mimeType: application/json
+                  text: |-
+                    {
+                    	"email":"maria@gmail.com",
+                    	"senha":"marilu123"
+                    }
+                headers:
+                  - name: Content-Type
+                    value: application/json
+                  - name: User-Agent
+                    value: insomnia/12.0.0
+                authentication:
+                  type: bearer
+                  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJiZWNhMTIzQGdtYWlsLmNvbSIsInRpcG8iOiJDTElFTlRFIiwiaWF0IjoxNzYzNDk2MzM4LCJleHAiOjE3NjM1MDM1Mzh9.ysgAcWLiDZC2sThAVoCxk1c5OosGYtQXQRLsA8PEtZY
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+          - name: PRODUTOS
+            meta:
+              id: fld_0c17c475a04f44c08781a3883a928849
+              created: 1763495170073
+              modified: 1763559472488
+              sortKey: -1763495066794.75
+              description: ""
+            children:
+              - url: http://localhost:5000/produtos
+                name: READ
+                meta:
+                  id: req_e8282823147c4ad485028908f9cf31be
+                  created: 1763495170075
+                  modified: 1763495184332
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1763495089046
+                method: GET
+                headers:
+                  - name: User-Agent
+                    value: insomnia/12.0.0
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: http://localhost:5000/produtos
+                name: CREATE
+                meta:
+                  id: req_ed7d35ee17924139a1620b2cdfe18be8
+                  created: 1763495170077
+                  modified: 1763560127694
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1763495088946
+                method: POST
+                body:
+                  mimeType: application/json
+                  text: >-
+                    {
+                    	"nome":"marguerita",
+                    	"descricao":"molho de tomate, mussarela de bufalo e manjericao",
+                    	"preco":70.99,
+                    	"quantidade":1
+                    }
+                headers:
+                  - name: Content-Type
+                    value: application/json
+                  - name: User-Agent
+                    value: insomnia/12.0.0
+                authentication:
+                  type: bearer
+                  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsImVtYWlsIjoid2lpbGwxMkBnbWFpbC5jb20iLCJ0aXBvIjoiR0VSRU5URSIsImlhdCI6MTc2MzU1MzAyNiwiZXhwIjoxNzYzNTYwMjI2fQ.-lLadgWYxs6RNm8UASs2821149fjLjXbyyvRpLBiDsI
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: http://localhost:5000/produtos/2
+                name: UPDATE
+                meta:
+                  id: req_c3806d5652794cfe9f56cc29f8589f56
+                  created: 1763553609914
+                  modified: 1763553657575
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1763495080576
+                method: PUT
+                body:
+                  mimeType: application/json
+                  text: >-
+                    {
+                    	"nome":"marguerita",
+                    	"descricao":"molho de tomate, mussarela de bufalo e manjericao fresco do mato ",
+                    	"preco":70.99,
+                    	"quantidade":1,
+                    	"marca":"caseira"
+                    }
+                headers:
+                  - name: Content-Type
+                    value: application/json
+                  - name: User-Agent
+                    value: insomnia/12.0.0
+                authentication:
+                  type: bearer
+                  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsImVtYWlsIjoid2lpbGwxMkBnbWFpbC5jb20iLCJ0aXBvIjoiR0VSRU5URSIsImlhdCI6MTc2MzU1MzAyNiwiZXhwIjoxNzYzNTYwMjI2fQ.-lLadgWYxs6RNm8UASs2821149fjLjXbyyvRpLBiDsI
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: http://localhost:5000/produtos/2
+                name: DELETE
+                meta:
+                  id: req_838f6c1c55cc4dc0b72d638231b433e7
+                  created: 1763553679543
+                  modified: 1763553694260
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1763495076391
+                method: DELETE
+                body:
+                  mimeType: application/json
+                  text: ""
+                headers:
+                  - name: Content-Type
+                    value: application/json
+                  - name: User-Agent
+                    value: insomnia/12.0.0
+                authentication:
+                  type: bearer
+                  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsImVtYWlsIjoid2lpbGwxMkBnbWFpbC5jb20iLCJ0aXBvIjoiR0VSRU5URSIsImlhdCI6MTc2MzU1MzAyNiwiZXhwIjoxNzYzNTYwMjI2fQ.-lLadgWYxs6RNm8UASs2821149fjLjXbyyvRpLBiDsI
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+          - name: PEDIDOS
+            meta:
+              id: fld_a6df84661a664a2b94ac4f73db1afad6
+              created: 1763553715555
+              modified: 1763560368567
+              sortKey: -1763495065732.5
+              description: ""
+            children:
+              - url: http://localhost:5000/pedidos
+                name: READ
+                meta:
+                  id: req_b6dd81fe015b4bb381ae0109e934afee
+                  created: 1763553715558
+                  modified: 1763560373368
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1763495089046
+                method: GET
+                headers:
+                  - name: User-Agent
+                    value: insomnia/12.0.0
+                authentication:
+                  type: bearer
+                  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ3aWlsbDEyQGdtYWlsLmNvbSIsInRpcG8iOiJHRVJFTlRFIiwiaWF0IjoxNzYzNTYwMzUyLCJleHAiOjE3NjM1Njc1NTJ9.eTgbw5nSCD9EaEYGfmO9zEHPRfpOI0-ZjcWLkmbOumw
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: http://localhost:5000/pedidos
+                name: CREATE
+                meta:
+                  id: req_fbfec993634c41d58a89b5a4ba05b854
+                  created: 1763553715560
+                  modified: 1763561065049
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1763495088946
+                method: POST
+                body:
+                  mimeType: application/json
+                  text: |-
+                    {
+                    	"usuario_id":1,
+                    	"data":""
+                    }
+                headers:
+                  - name: Content-Type
+                    value: application/json
+                  - name: User-Agent
+                    value: insomnia/12.0.0
+                authentication:
+                  type: bearer
+                  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ3aWlsbDEyQGdtYWlsLmNvbSIsInRpcG8iOiJHRVJFTlRFIiwiaWF0IjoxNzYzNTYwMzUyLCJleHAiOjE3NjM1Njc1NTJ9.eTgbw5nSCD9EaEYGfmO9zEHPRfpOI0-ZjcWLkmbOumw
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: http://localhost:5000/pedidos/1
+                name: UPDATE
+                meta:
+                  id: req_f2aa86fdad3c4d56830ef3db93bd65fc
+                  created: 1763553715561
+                  modified: 1763561202646
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1763495080576
+                method: PUT
+                body:
+                  mimeType: application/json
+                  text: |-
+                    {
+                    		"usuario_id": 2,
+                    		"data":"0000-11-19T13:38:17.000Z"
+                    }
+                headers:
+                  - name: Content-Type
+                    value: application/json
+                  - name: User-Agent
+                    value: insomnia/12.0.0
+                authentication:
+                  type: bearer
+                  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ3aWlsbDEyQGdtYWlsLmNvbSIsInRpcG8iOiJHRVJFTlRFIiwiaWF0IjoxNzYzNTYwMzUyLCJleHAiOjE3NjM1Njc1NTJ9.eTgbw5nSCD9EaEYGfmO9zEHPRfpOI0-ZjcWLkmbOumw
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: http://localhost:5000/pedidos/3
+                name: DELETE
+                meta:
+                  id: req_7c2cb811f752412fb51a95e2768efd86
+                  created: 1763553715563
+                  modified: 1763561230614
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1763495076391
+                method: DELETE
+                body:
+                  mimeType: application/json
+                  text: ""
+                headers:
+                  - name: Content-Type
+                    value: application/json
+                  - name: User-Agent
+                    value: insomnia/12.0.0
+                authentication:
+                  type: bearer
+                  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsImVtYWlsIjoid2lpbGwxMkBnbWFpbC5jb20iLCJ0aXBvIjoiR0VSRU5URSIsImlhdCI6MTc2MzU1MzAyNiwiZXhwIjoxNzYzNTYwMjI2fQ.-lLadgWYxs6RNm8UASs2821149fjLjXbyyvRpLBiDsI
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+        authentication:
+          type: bearer
+          token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJtYXJpYUBnbWFpbC5jb20iLCJ0aXBvIjoiR0VSRU5URSIsImlhdCI6MTc2MzU3MzI2NCwiZXhwIjoxNzYzNTgwNDY0fQ.H0bBs1hqpKfY1SNHEXNejB0_LfM6AVUfa8ELelc9RJo
+      - name: Vercel
+        meta:
+          id: fld_e03d050e2c604fcc94080339a5b36a7e
+          created: 1763573352515
+          modified: 1763573360611
+          sortKey: -1763573340002
+          description: ""
+        children:
+          - url: " http://localhost:5000"
+            name: TESTE
+            meta:
+              id: req_08bd2c1f3b3d45458b16b040d0f0b96b
+              created: 1763573352517
+              modified: 1763573352517
+              isPrivate: false
+              description: ""
+              sortKey: -1763495072206
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/12.0.0
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - name: USUARIO
+            meta:
+              id: fld_fa0b5176b0804fcb8963d1ec5d8a39d5
+              created: 1763573352518
+              modified: 1763573352518
+              sortKey: -1763495072106
+              description: ""
+            children:
+              - url: http://localhost:5000/usuarios
+                name: READ
+                meta:
+                  id: req_926fced272734a928a54b30cb6b92651
+                  created: 1763573352519
+                  modified: 1763573352519
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1763495089046
+                method: GET
+                body:
+                  mimeType: application/json
+                  text: ""
+                headers:
+                  - name: Content-Type
+                    value: application/json
+                  - name: User-Agent
+                    value: insomnia/12.0.0
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: http://localhost:5000/usuarios
+                name: CREATE
+                meta:
+                  id: req_c75d42cf1c0e4f9d9ef32fc39daa6059
+                  created: 1763573352520
+                  modified: 1763573352520
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1763495088946
+                method: POST
+                body:
+                  mimeType: application/json
+                  text: |-
+                    {
+                    	"nome":"Maria Luiza ",
+                    	"email":"maria@gmail.com",
+                    	"telefone":"190000000",
+                    	"senha":"marilu123",
+                    	"tipo":"GERENTE",
+                    	"cpf":"111.000.000.00"
+                    }
+                headers:
+                  - name: Content-Type
+                    value: application/json
+                  - name: User-Agent
+                    value: insomnia/12.0.0
+                authentication:
+                  type: bearer
+                  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJiZWNhMTIzQGdtYWlsLmNvbSIsInRpcG8iOiJDTElFTlRFIiwiaWF0IjoxNzYzNDk2MzM4LCJleHAiOjE3NjM1MDM1Mzh9.ysgAcWLiDZC2sThAVoCxk1c5OosGYtQXQRLsA8PEtZY
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: http://localhost:5000/login
+                name: LOGIN
+                meta:
+                  id: req_88f3c045288348d1a42f170ecc39be0d
+                  created: 1763573352521
+                  modified: 1763573352521
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1763495084761
+                method: POST
+                body:
+                  mimeType: application/json
+                  text: |-
+                    {
+                    	"email":"maria@gmail.com",
+                    	"senha":"marilu123"
+                    }
+                headers:
+                  - name: Content-Type
+                    value: application/json
+                  - name: User-Agent
+                    value: insomnia/12.0.0
+                authentication:
+                  type: bearer
+                  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJiZWNhMTIzQGdtYWlsLmNvbSIsInRpcG8iOiJDTElFTlRFIiwiaWF0IjoxNzYzNDk2MzM4LCJleHAiOjE3NjM1MDM1Mzh9.ysgAcWLiDZC2sThAVoCxk1c5OosGYtQXQRLsA8PEtZY
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+          - name: PRODUTOS
+            meta:
+              id: fld_547b2fd4e5d742d889af9eeae020e01e
+              created: 1763573352522
+              modified: 1763573352522
+              sortKey: -1763495066794.75
+              description: ""
+            children:
+              - url: http://localhost:5000/produtos
+                name: READ
+                meta:
+                  id: req_89514ae66b9b4033b857fc65edfd7851
+                  created: 1763573352523
+                  modified: 1763573352523
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1763495089046
+                method: GET
+                headers:
+                  - name: User-Agent
+                    value: insomnia/12.0.0
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: http://localhost:5000/produtos
+                name: CREATE
+                meta:
+                  id: req_f512aebdbbaf4866bb2bbf94c10dd3de
+                  created: 1763573352525
+                  modified: 1763573352525
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1763495088946
+                method: POST
+                body:
+                  mimeType: application/json
+                  text: >-
+                    {
+                    	"nome":"marguerita",
+                    	"descricao":"molho de tomate, mussarela de bufalo e manjericao",
+                    	"preco":70.99,
+                    	"quantidade":1
+                    }
+                headers:
+                  - name: Content-Type
+                    value: application/json
+                  - name: User-Agent
+                    value: insomnia/12.0.0
+                authentication:
+                  type: bearer
+                  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsImVtYWlsIjoid2lpbGwxMkBnbWFpbC5jb20iLCJ0aXBvIjoiR0VSRU5URSIsImlhdCI6MTc2MzU1MzAyNiwiZXhwIjoxNzYzNTYwMjI2fQ.-lLadgWYxs6RNm8UASs2821149fjLjXbyyvRpLBiDsI
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: http://localhost:5000/produtos/2
+                name: UPDATE
+                meta:
+                  id: req_6474ff02b02c469aab38708a3208afb8
+                  created: 1763573352526
+                  modified: 1763573352526
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1763495080576
+                method: PUT
+                body:
+                  mimeType: application/json
+                  text: >-
+                    {
+                    	"nome":"marguerita",
+                    	"descricao":"molho de tomate, mussarela de bufalo e manjericao fresco do mato ",
+                    	"preco":70.99,
+                    	"quantidade":1,
+                    	"marca":"caseira"
+                    }
+                headers:
+                  - name: Content-Type
+                    value: application/json
+                  - name: User-Agent
+                    value: insomnia/12.0.0
+                authentication:
+                  type: bearer
+                  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsImVtYWlsIjoid2lpbGwxMkBnbWFpbC5jb20iLCJ0aXBvIjoiR0VSRU5URSIsImlhdCI6MTc2MzU1MzAyNiwiZXhwIjoxNzYzNTYwMjI2fQ.-lLadgWYxs6RNm8UASs2821149fjLjXbyyvRpLBiDsI
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: http://localhost:5000/produtos/2
+                name: DELETE
+                meta:
+                  id: req_810df4a258404de9b5265238932582e9
+                  created: 1763573352528
+                  modified: 1763573352528
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1763495076391
+                method: DELETE
+                body:
+                  mimeType: application/json
+                  text: ""
+                headers:
+                  - name: Content-Type
+                    value: application/json
+                  - name: User-Agent
+                    value: insomnia/12.0.0
+                authentication:
+                  type: bearer
+                  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsImVtYWlsIjoid2lpbGwxMkBnbWFpbC5jb20iLCJ0aXBvIjoiR0VSRU5URSIsImlhdCI6MTc2MzU1MzAyNiwiZXhwIjoxNzYzNTYwMjI2fQ.-lLadgWYxs6RNm8UASs2821149fjLjXbyyvRpLBiDsI
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+          - name: PEDIDOS
+            meta:
+              id: fld_7cc2211a90dc48c0875ba7d1958e314b
+              created: 1763573352529
+              modified: 1763573352529
+              sortKey: -1763495065732.5
+              description: ""
+            children:
+              - url: http://localhost:5000/pedidos
+                name: READ
+                meta:
+                  id: req_5f96b71a0e2f460d88a2d0577b59f794
+                  created: 1763573352530
+                  modified: 1763573352530
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1763495089046
+                method: GET
+                headers:
+                  - name: User-Agent
+                    value: insomnia/12.0.0
+                authentication:
+                  type: bearer
+                  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ3aWlsbDEyQGdtYWlsLmNvbSIsInRpcG8iOiJHRVJFTlRFIiwiaWF0IjoxNzYzNTYwMzUyLCJleHAiOjE3NjM1Njc1NTJ9.eTgbw5nSCD9EaEYGfmO9zEHPRfpOI0-ZjcWLkmbOumw
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: http://localhost:5000/pedidos
+                name: CREATE
+                meta:
+                  id: req_e2c287c21e2847fc8069b1a388aeec78
+                  created: 1763573352531
+                  modified: 1763573352531
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1763495088946
+                method: POST
+                body:
+                  mimeType: application/json
+                  text: |-
+                    {
+                    	"usuario_id":1,
+                    	"data":""
+                    }
+                headers:
+                  - name: Content-Type
+                    value: application/json
+                  - name: User-Agent
+                    value: insomnia/12.0.0
+                authentication:
+                  type: bearer
+                  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ3aWlsbDEyQGdtYWlsLmNvbSIsInRpcG8iOiJHRVJFTlRFIiwiaWF0IjoxNzYzNTYwMzUyLCJleHAiOjE3NjM1Njc1NTJ9.eTgbw5nSCD9EaEYGfmO9zEHPRfpOI0-ZjcWLkmbOumw
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: http://localhost:5000/pedidos/1
+                name: UPDATE
+                meta:
+                  id: req_8b14cc1ef193435196818b01f1b329b2
+                  created: 1763573352533
+                  modified: 1763573352533
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1763495080576
+                method: PUT
+                body:
+                  mimeType: application/json
+                  text: |-
+                    {
+                    		"usuario_id": 2,
+                    		"data":"0000-11-19T13:38:17.000Z"
+                    }
+                headers:
+                  - name: Content-Type
+                    value: application/json
+                  - name: User-Agent
+                    value: insomnia/12.0.0
+                authentication:
+                  type: bearer
+                  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ3aWlsbDEyQGdtYWlsLmNvbSIsInRpcG8iOiJHRVJFTlRFIiwiaWF0IjoxNzYzNTYwMzUyLCJleHAiOjE3NjM1Njc1NTJ9.eTgbw5nSCD9EaEYGfmO9zEHPRfpOI0-ZjcWLkmbOumw
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+              - url: http://localhost:5000/pedidos/3
+                name: DELETE
+                meta:
+                  id: req_02c01230fb48487593afeab2e21aa9fc
+                  created: 1763573352534
+                  modified: 1763573352534
+                  isPrivate: false
+                  description: ""
+                  sortKey: -1763495076391
+                method: DELETE
+                body:
+                  mimeType: application/json
+                  text: ""
+                headers:
+                  - name: Content-Type
+                    value: application/json
+                  - name: User-Agent
+                    value: insomnia/12.0.0
+                authentication:
+                  type: bearer
+                  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsImVtYWlsIjoid2lpbGwxMkBnbWFpbC5jb20iLCJ0aXBvIjoiR0VSRU5URSIsImlhdCI6MTc2MzU1MzAyNiwiZXhwIjoxNzYzNTYwMjI2fQ.-lLadgWYxs6RNm8UASs2821149fjLjXbyyvRpLBiDsI
+                settings:
+                  renderRequestBody: true
+                  encodeUrl: true
+                  followRedirects: global
+                  cookies:
+                    send: true
+                    store: true
+                  rebuildPath: true
+        authentication:
+          type: bearer
+          token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJtYXJpYUBnbWFpbC5jb20iLCJ0aXBvIjoiR0VSRU5URSIsImlhdCI6MTc2MzU3MzI2NCwiZXhwIjoxNzYzNTgwNDY0fQ.H0bBs1hqpKfY1SNHEXNejB0_LfM6AVUfa8ELelc9RJo
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_99d30891da4bdcebc63947a8fc17f076de878684
+    created: 1756812756543
+    modified: 1756812756543
+environments:
+  name: Base Environment
+  meta:
+    id: env_99d30891da4bdcebc63947a8fc17f076de878684
+    created: 1756812756541
+    modified: 1756812756541
+    isPrivate: false
