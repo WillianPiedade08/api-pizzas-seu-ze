@@ -22,11 +22,11 @@ function autenticarJWT(req, res, next) {
 }
 
 // Middleware extra para verificar ADMIN
-function verificarAdmin(req, res, next) {
+function verificargerente(req, res, next) {
     if (req.usuario && req.usuario.tipo === 'GERENTE') {
         return next();
     }
-    return res.status(403).json({ erro: 'Acesso restrito a administradores' });
+    return res.status(403).json({ erro: 'Acesso restrito a GERENTE' });
 }
 
-module.exports = { autenticarJWT, verificarAdmin };
+module.exports = { autenticarJWT, verificargerente };

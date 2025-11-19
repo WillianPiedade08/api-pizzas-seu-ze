@@ -22,7 +22,6 @@ function ensureFunction(fn, name) {
 // ROTAS DE USUÁRIO
 rota.post("/usuarios", ensureFunction(usuario.create, "usuario.create"));
 rota.post("/login", ensureFunction(usuario.login, "usuario.login"));
-rota.post("/recuperar-senha", ensureFunction(usuario.solicitarRecuperacao, "usuario.solicitarRecuperacao"));
 rota.post("/resetar-senha", ensureFunction(usuario.resetarSenha, "usuario.resetarSenha"));
 rota.get("/usuarios", autenticarJWT, verificargerente, ensureFunction(usuario.listar, "usuario.listar")); // GERENTE
 
