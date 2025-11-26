@@ -1,5 +1,5 @@
 // controllers/webhook.js
-const prisma = require('../connect');
+const prisma = require('../config/prisma');
 
 module.exports = {
   async receberWebhook(req, res) {

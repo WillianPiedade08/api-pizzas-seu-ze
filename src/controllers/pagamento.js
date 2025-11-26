@@ -1,7 +1,6 @@
 // src/controllers/pagamento.js
 const axios = require("axios");
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const prisma = require("../config/prisma");
 
 const ASAAS_API_KEY = process.env.ASAAS_API_KEY?.trim();
 const ASAAS_API_URL = process.env.ASAAS_BASE_URL?.trim() || "https://sandbox.asaas.com/api/v3";

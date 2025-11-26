@@ -13,46 +13,51 @@ model Usuario {
   email     String    @unique
   telefone  String
   senha     String
-  tipo      String    @default("CLIENTE")
+  tipo      String    @default("CLIENTE") // CLIENTE ou GERENTE
   cpf       String?   @unique @db.VarChar(14)
-  createdAt DateTime? @default(now()) @db.Timestamp(6)
-  updatedAt DateTime? @default(now()) @updatedAt @db.Timestamp(6)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  
   pedidos   Pedido[]
 
-  @@map("Usuario")
+  @@map("usuarios") // Mapeia para a tabela 'usuarios' no banco
 }
 
 model Produto {
   id          Int              @id @default(autoincrement())
   nome        String           @db.VarChar(255)
   descricao   String?
-  preco       Decimal          @db.Decimal(10, 2)
+  preco       Float
   quantidade  Int?             @default(0)
   imagem      String?
-  created_at  DateTime?        @default(now()) @db.Timestamp(6)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  
   itens       PedidoProduto[]
+
+  @@map("produtos")
 }
 
 model Pedido {
-  pedido_id  Int           @id @default(autoincrement())
-  usuario_id Int
-  data       DateTime      @default(now())
-  sub_total  Decimal?
-  usuario    Usuario       @relation(fields: [usuario_id], references: [id])
-  itens      PedidoProduto[]
+  id          Int           @id @default(autoincrement())
+  usuarioId   Int
+  data        DateTime      @default(now())
+  subTotal    Float?
+  
+  usuario     Usuario       @relation(fields: [usuarioId], references: [id])
+  itens       PedidoProduto[]
+
+  @@map("pedidos")
 }
 
 model PedidoProduto {
-  id         Int      @id @default(autoincrement())
-  pedidoId   Int
-  produtoId  Int
-  quantidade Int
+  id          Int      @id @default(autoincrement())
+  pedidoId    Int
+  produtoId   Int
+  quantidade  Int
+  
+  pedido      Pedido   @relation(fields: [pedidoId], references: [id])
+  produto     Produto  @relation(fields: [produtoId], references: [id])
 
-  pedido     Pedido   @relation(fields: [pedidoId], references: [pedido_id])
-  produto    Produto  @relation(fields: [produtoId], references: [id])
-}
-
-enum Tipo {
-  GERENTE
-  CLIENTE
+  @@map("pedidos_produtos")
 }

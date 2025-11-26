@@ -1,32 +1,93 @@
 const jwt = require('jsonwebtoken');
-const SECRET = process.env.JWT_SECRET || 'secreta';
 
-// Middleware base de autenticação
-function autenticarJWT(req, res, next) {
-    const authHeader = req.headers.authorization;
+const JWT_SECRET = process.env.JWT_SECRET || 'sua_chave_secreta_padrao';
 
-    if (!authHeader) {
-        return res.status(401).json({ erro: 'Token não fornecido' });
-    }
+/**
+ * Middleware para autenticar requisições usando JWT
+ * Verifica se o token é válido e adiciona os dados do usuário em req.user
+ */
+const autenticarJWT = (req, res, next) => {
+    try {
+        // Pega o token do header Authorization
+        const authHeader = req.headers.authorization;
 
-    const token = authHeader.split(' ')[1];
-
-    jwt.verify(token, SECRET, (err, usuario) => {
-        if (err) {
-            return res.status(403).json({ erro: 'Token inválido ou expirado' });
+        if (!authHeader) {
+            return res.status(401).json({ 
+                error: "Token de autenticação não fornecido.",
+                message: "Envie o token no header Authorization: Bearer <token>"
+            });
         }
 
-        req.usuario = usuario; // aqui vai ter { id, email, tipo } que você salvou no login
-        next();
-    });
-}
+        // Formato esperado: "Bearer TOKEN"
+        const parts = authHeader.split(' ');
+        
+        if (parts.length !== 2 || parts[0] !== 'Bearer') {
+            return res.status(401).json({ 
+                error: "Formato de token inválido.",
+                message: "Use o formato: Bearer <token>"
+            });
+        }
 
-// Middleware extra para verificar ADMIN
-function verificargerente(req, res, next) {
-    if (req.usuario && req.usuario.tipo === 'GERENTE') {
-        return next();
+        const token = parts[1];
+
+        // Verifica e decodifica o token
+        jwt.verify(token, JWT_SECRET, (err, decoded) => {
+            if (err) {
+                if (err.name === 'TokenExpiredError') {
+                    return res.status(401).json({ 
+                        error: "Token expirado.",
+                        message: "Faça login novamente."
+                    });
+                }
+                
+                return res.status(401).json({ 
+                    error: "Token inválido.",
+                    message: "O token fornecido não é válido."
+                });
+            }
+
+            // Adiciona os dados do usuário na requisição
+            req.user = {
+                userId: decoded.userId,
+                tipo: decoded.tipo
+            };
+
+            next();
+        });
+
+    } catch (error) {
+        console.error("❌ Erro na autenticação:", error);
+        return res.status(500).json({ 
+            error: "Erro interno ao autenticar." 
+        });
     }
-    return res.status(403).json({ erro: 'Acesso restrito a GERENTE' });
-}
+};
 
-module.exports = { autenticarJWT, verificargerente };
+/**
+ * Middleware para verificar se o usuário é gerente
+ * Deve ser usado após o middleware autenticarJWT
+ */
+const verificargerente = (req, res, next) => {
+    try {
+        // O req.user é adicionado pelo autenticarJWT
+        if (!req.user || req.user.tipo !== 'GERENTE') {
+            return res.status(403).json({ 
+                error: "Acesso negado.",
+                message: "Apenas gerentes podem acessar este recurso."
+            });
+        }
+
+        next();
+
+    } catch (error) {
+        console.error("❌ Erro na verificação de permissão:", error);
+        return res.status(500).json({ 
+            error: "Erro interno ao verificar permissões." 
+        });
+    }
+};
+
+module.exports = { 
+    autenticarJWT, 
+    verificargerente
+};

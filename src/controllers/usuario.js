@@ -1,110 +1,224 @@
-const prisma = require('../connect');
-const jwt = require('jsonwebtoken');
-const sgMail = require('@sendgrid/mail'); // ✅ SendGrid para envio de email
+const prisma = require('../config/prisma');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-const SECRET = process.env.JWT_SECRET || 'secreta';
-const SECRET_RECUPERACAO = process.env.JWT_SECRET_RECUPERACAO || 'recuperar_senha';
 
-// Configuração do SendGrid
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const JWT_SECRET = process.env.JWT_SECRET || 'sua_chave_secreta_padrao';
 
-// Listar todos os usuários (somente GERENTE)
-const listar = async (req, res) => {
-  try {
-    if (req.usuario.tipo !== "GERENTE") {
-      return res.status(403).json({ erro: "Acesso negado. Apenas GERENTE pode listar usuários." });
-    }
-
-    const usuarios = await prisma.usuario.findMany({
-      select: { id: true, nome: true, cpf: true, email: true, telefone: true, tipo: true }
-    });
-    res.json(usuarios);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ erro: "Erro ao listar usuários." });
-  }
-};
-
-// Criar usuário com hash de senha
+/**
+ * Função de Cadastro de Usuário
+ * Endpoint: POST /usuarios
+ */
 const create = async (req, res) => {
-  const { nome, email, telefone, senha, tipo, cpf } = req.body; // ✅ Desestruturação corrigida
-  try {
-    const saltRounds = 10;
-    const senhaHash = await bcrypt.hash(senha, saltRounds);
+    try {
+        const { nome, email, telefone, senha, cpf } = req.body;
 
-    const usuario = await prisma.usuario.create({
-      data: { 
-        nome, 
-        cpf, // ✅ Incluindo cpf
-        email, 
-        telefone, 
-        senha: senhaHash,
-        tipo: tipo || "CLIENTE"
-      },
-    });
-    res.status(201).json({ message: "Usuário criado com sucesso!", usuario: { id: usuario.id, nome, email, tipo } });
-  } catch (err) {
-    console.error("Erro ao criar usuário:", err);
-    if (err.code === 'P2002') { // Erro de duplicata (email ou cpf único)
-      const mensagem = err.meta?.target?.includes('email') ? "E-mail já cadastrado." : "CPF já cadastrado.";
-      return res.status(409).json({ message: mensagem });
+        // 1. Validação básica
+        if (!nome || !email || !telefone || !senha || !cpf) {
+            return res.status(400).json({ error: "Todos os campos são obrigatórios." });
+        }
+
+        // 2. Validação de formato de e-mail
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return res.status(400).json({ error: "Formato de e-mail inválido." });
+        }
+
+        // 3. Limpeza e validação de CPF
+        const cpfLimpo = cpf.replace(/\D/g, '');
+        if (cpfLimpo.length !== 11) {
+            return res.status(400).json({ error: "CPF deve conter 11 dígitos." });
+        }
+
+        // 4. Verifica se o usuário já existe (por e-mail ou CPF)
+        const existingUser = await prisma.usuario.findFirst({
+            where: {
+                OR: [
+                    { email },
+                    { cpf: cpfLimpo }
+                ]
+            }
+        });
+
+        if (existingUser) {
+            if (existingUser.email === email) {
+                return res.status(409).json({ error: "E-mail já cadastrado." });
+            }
+            if (existingUser.cpf === cpfLimpo) {
+                return res.status(409).json({ error: "CPF já cadastrado." });
+            }
+        }
+
+        // 5. Hash da senha
+        const hashedPassword = await bcrypt.hash(senha, 10);
+
+        // 6. Cria o usuário no banco de dados
+        const newUser = await prisma.usuario.create({
+            data: {
+                nome,
+                email,
+                telefone,
+                senha: hashedPassword,
+                tipo: 'CLIENTE',
+                cpf: cpfLimpo,
+            },
+            select: {
+                id: true,
+                nome: true,
+                email: true,
+                telefone: true,
+                tipo: true,
+                cpf: true,
+            }
+        });
+
+        // 7. Gera o token de autenticação
+        const token = jwt.sign(
+            { userId: newUser.id, tipo: newUser.tipo }, 
+            JWT_SECRET, 
+            { expiresIn: '7d' }
+        );
+
+        console.log(`✅ Usuário cadastrado com sucesso: ${newUser.email} (ID: ${newUser.id})`);
+
+        return res.status(201).json({ 
+            message: "Usuário cadastrado com sucesso!",
+            token, 
+            user: newUser 
+        });
+
+    } catch (error) {
+        console.error("❌ Erro no cadastro:", error);
+        return res.status(500).json({ 
+            error: "Erro interno do servidor ao cadastrar."
+        });
     }
-    res.status(400).json({ message: "Erro ao criar usuário." });
-  }
 };
 
-// Login com comparação de hash
+/**
+ * Função de Login
+ * Endpoint: POST /usuarios/login
+ */
 const login = async (req, res) => {
-  const { email, senha } = req.body;
-  try {
-    const usuario = await prisma.usuario.findUnique({ where: { email } });
+    try {
+        const { email, senha } = req.body;
 
-    if (!usuario) {
-      return res.status(401).json({ message: 'Email ou senha inválidos.' });
+        // 1. Validação básica
+        if (!email || !senha) {
+            return res.status(400).json({ error: "E-mail e senha são obrigatórios." });
+        }
+
+        // 2. Busca o usuário pelo e-mail
+        const user = await prisma.usuario.findUnique({ 
+            where: { email } 
+        });
+
+        if (!user) {
+            // Mensagem genérica por segurança
+            return res.status(401).json({ error: "E-mail ou senha inválidos." });
+        }
+
+        // 3. Compara a senha
+        const isPasswordValid = await bcrypt.compare(senha, user.senha);
+        if (!isPasswordValid) {
+            // Mensagem genérica por segurança
+            return res.status(401).json({ error: "E-mail ou senha inválidos." });
+        }
+
+        // 4. Gera o token de autenticação
+        const token = jwt.sign(
+            { userId: user.id, tipo: user.tipo }, 
+            JWT_SECRET, 
+            { expiresIn: '7d' }
+        );
+
+        // 5. Retorna o token e os dados do usuário (sem a senha)
+        const { senha: _, ...userWithoutPassword } = user;
+
+        console.log(`✅ Login realizado: ${user.email} (ID: ${user.id})`);
+
+        return res.status(200).json({ 
+            message: "Login realizado com sucesso!",
+            token, 
+            user: userWithoutPassword 
+        });
+
+    } catch (error) {
+        console.error("❌ Erro no login:", error);
+        return res.status(500).json({ 
+            error: "Erro interno do servidor ao fazer login."
+        });
     }
-
-    const senhaValida = await bcrypt.compare(senha, usuario.senha);
-    if (!senhaValida) {
-      return res.status(401).json({ message: 'Email ou senha inválidos.' });
-    }
-
-    const token = jwt.sign(
-      { id: usuario.id, email: usuario.email, tipo: usuario.tipo }, 
-      SECRET, 
-      { expiresIn: '2h' }
-    );
-    res.status(200).json({ message: 'Login bem-sucedido', token, tipo: usuario.tipo });
-  } catch (err) {
-    console.error("Erro no login:", err);
-    res.status(400).json({ message: "Erro interno no login." });
-  }
 };
 
-// Resetar senha com hash
+/**
+ * Função para Listar Usuários (apenas para gerentes)
+ * Endpoint: GET /usuarios
+ */
+const listar = async (req, res) => {
+    try {
+        const usuarios = await prisma.usuario.findMany({
+            select: {
+                id: true,
+                nome: true,
+                email: true,
+                telefone: true,
+                tipo: true,
+                cpf: true,
+                createdAt: true,
+            },
+            orderBy: {
+                createdAt: 'desc'
+            }
+        });
+
+        return res.status(200).json({ usuarios });
+
+    } catch (error) {
+        console.error("❌ Erro ao listar usuários:", error);
+        return res.status(500).json({ 
+            error: "Erro interno do servidor ao listar usuários." 
+        });
+    }
+};
+
+/**
+ * Função para Resetar Senha
+ * Endpoint: POST /usuarios/resetar-senha
+ */
 const resetarSenha = async (req, res) => {
-  const { token, novaSenha } = req.body;
-  try {
-    const decoded = jwt.verify(token, SECRET_RECUPERACAO);
+    try {
+        const { email, novaSenha } = req.body;
 
-    const saltRounds = 10;
-    const senhaHash = await bcrypt.hash(novaSenha, saltRounds);
+        if (!email || !novaSenha) {
+            return res.status(400).json({ error: "E-mail e nova senha são obrigatórios." });
+        }
 
-    await prisma.usuario.update({
-      where: { id: decoded.id },
-      data: { senha: senhaHash }
-    });
+        // Busca o usuário
+        const user = await prisma.usuario.findUnique({ where: { email } });
+        if (!user) {
+            return res.status(404).json({ error: "Usuário não encontrado." });
+        }
 
-    res.status(200).json({ message: 'Senha redefinida com sucesso!' });
-  } catch (err) {
-    console.error("Erro no reset:", err);
-    res.status(400).json({ message: 'Token inválido ou expirado.' });
-  }
+        // Hash da nova senha
+        const hashedPassword = await bcrypt.hash(novaSenha, 10);
+
+        // Atualiza a senha
+        await prisma.usuario.update({
+            where: { email },
+            data: { senha: hashedPassword }
+        });
+
+        console.log(`✅ Senha resetada para: ${email}`);
+
+        return res.status(200).json({ message: "Senha resetada com sucesso!" });
+
+    } catch (error) {
+        console.error("❌ Erro ao resetar senha:", error);
+        return res.status(500).json({ 
+            error: "Erro interno do servidor ao resetar senha." 
+        });
+    }
 };
 
-module.exports = {
-  listar,
-  create,
-  login,
-  resetarSenha
-};
+module.exports = { create, login, listar, resetarSenha };

@@ -2,25 +2,57 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-const routes = require('../src/routes');
+// Importa o roteador
+const routes = require('../src/routes'); 
 
-app.use(cors());
+// ========================================
+// MIDDLEWARES
+// ========================================
+app.use(cors({
+    origin: '*', // Em produção, especifique os domínios permitidos
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(express.json());
-app.use(routes);
+app.use(express.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-  res.json({
-    titulo: 'API está funcionando!',
-    rotas: [
-      { rota: '/usuarios', descricao: 'Rotas para CRUD de usuários' },
-      { rota: '/login', descricao: 'Rota de Login de usuário' },
-      { rota: '/produtos', descricao: 'Rotas de CRUD de produtos' },
-      { rota: '/pedidos', descricao: 'Rotas de CRUD de pedidos' },
-      { rota: '/pagamentos', descricao: 'Rotas de CRUD de pagamento' }
-    ]
-  });
+// Middleware de log para desenvolvimento
+if (process.env.NODE_ENV === 'development') {
+    app.use((req, res, next) => {
+        console.log(`📥 ${req.method} ${req.path}`, req.body);
+        next();
+    });
+}
+
+// ========================================
+// ROTAS
+// ========================================
+app.use(routes); 
+
+// ========================================
+// TRATAMENTO DE ERROS 404
+// ========================================
+app.use((req, res) => {
+    res.status(404).json({ 
+        error: "Rota não encontrada",
+        path: req.path,
+        method: req.method
+    });
 });
 
-app.listen(5000, () => {
-  console.log('API executando em http://localhost:5000');
+// ========================================
+// TRATAMENTO DE ERROS GLOBAL
+// ========================================
+app.use((err, req, res, next) => {
+    console.error('❌ Erro não tratado:', err);
+    res.status(500).json({ 
+        error: "Erro interno do servidor",
+        details: process.env.NODE_ENV === 'development' ? err.message : undefined
+    });
 });
+
+// ========================================
+// EXPORTA O APP PARA O VERCEL
+// ========================================
+module.exports = app;

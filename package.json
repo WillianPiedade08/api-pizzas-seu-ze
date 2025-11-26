@@ -1,28 +1,24 @@
 {
-  "name": "api",
+  "name": "padaria-api",
   "version": "1.0.0",
+  "description": "API para sistema de padaria com autenticação e gestão de pedidos",
   "main": "api/server.js",
   "scripts": {
-    "dev": "npx nodemon api/server.js",
-    "postinstall": "prisma generate"
+    "start": "node api/server.js",
+    "dev": "nodemon api/server.js"
   },
-  "keywords": [],
+  "keywords": ["padaria", "api", "express", "prisma"],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
-    "@prisma/client": "^6.14.0",
-    "@sendgrid/mail": "^8.1.6",
-    "bcrypt": "^6.0.0",
+    "@prisma/client": "^5.0.0",
+    "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
-    "dotenv": "^16.6.1",
-    "express": "^5.1.0",
+    "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2"
   },
-  "prisma": {
-    "seed": "node prisma/seed.js"
-  },
   "devDependencies": {
-    "prisma": "^6.14.0"
-  },
-  "description": "Api da Pizzaria do seu zé - TCC"
+    "nodemon": "^3.0.1",
+    "prisma": "^5.0.0"
+  }
 }
