@@ -31,11 +31,11 @@ rota.get('/', (req, res) => {
     res.json({
         titulo: "Pizzaria do seu Zé ",
         rotas: [
-            { professor: "/usuarios" },
-            { professor: "/usuarios/login" },
-            { turma: "/produtos" },
-            { atividade: "/pedidos" },
-            { atividade: "/pagamentos" },
+            { usuarios: "/usuarios" },
+            { login: "/usuarios/login" },
+            { produtos: "/produtos" },
+            { pedidos: "/pedidos" },
+            { pagamentos: "/pagamentos" },
         ]
     })
 })
