@@ -42,8 +42,7 @@ async function main() {
             "descricao": "molho de tomate, frango e catupiry",
             "preco": 70.99,
             "quantidade": 1,
-            "imagem": "",
-            "created_at": "2025-11-19T13:47:04.460Z"
+            "imagem": ""
         },
     })
 
