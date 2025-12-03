@@ -4,8 +4,8 @@
   "description": "API para sistema de padaria com autenticação e gestão de pedidos",
   "main": "api/server.js",
   "scripts": {
-    "start": "node api/server.js",
-    "dev": "nodemon api/server.js"
+    "dev": "nodemon api/server.js",
+    "postinstall": "prisma generate"
   },
   "keywords": ["padaria", "api", "express", "prisma"],
   "author": "",
