@@ -1,10 +1,10 @@
 {
-  "name": "padaria-api",
+  "name": "pizzaria-api",
   "version": "1.0.0",
   "description": "API para sistema de padaria com autenticação e gestão de pedidos",
-  "main": "api/server.js",
+  "main": "server.js",
   "scripts": {
-    "dev": "nodemon api/server.js",
+    "dev": "npx nodemon server.js",
     "postinstall": "prisma generate"
   },
   "keywords": ["padaria", "api", "express", "prisma"],

@@ -1,5 +1,5 @@
-// controllers/produto.js
-const prisma = require("../config/prisma");
+const { PrismaClient } = require('@prisma/client')
+const prisma = new PrismaClient()
 
 /**
  * Criar produto (GERENTE)

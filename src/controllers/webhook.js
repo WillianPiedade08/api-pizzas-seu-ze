@@ -1,5 +1,5 @@
-// controllers/webhook.js
-const prisma = require('../config/prisma');
+const { PrismaClient } = require('@prisma/client')
+const prisma = new PrismaClient()
 
 module.exports = {
   async receberWebhook(req, res) {
