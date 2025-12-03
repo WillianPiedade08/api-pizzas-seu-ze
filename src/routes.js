@@ -19,7 +19,7 @@ rota.get("/", (req, res) => {
         message: "API da Pizzaria está funcionando! 🍕",
         timestamp: new Date().toISOString(),
         endpoints: {
-            usuarios: "POST /usuarios (Cadastro), POST /usuarios/login, POST /usuarios/resetar-senha, GET /usuarios (Listar)",
+            usuarios: "POST /usuarios (Cadastro), POST /login, POST /usuarios/resetar-senha, GET /usuarios (Listar)",
             produtos: "/produtos",
             pedidos: "/pedidos",
             pagamentos: "/pagamentos",
@@ -32,7 +32,7 @@ rota.get("/", (req, res) => {
 // ROTAS DE USUÁRIO
 // ========================================
 rota.post("/usuarios", usuario.create); // Cadastro
-rota.post("/usuarios/login", usuario.login); // Login
+rota.post("/login", usuario.login); // Login
 rota.post("/usuarios/resetar-senha", usuario.resetarSenha); // Resetar Senha
 rota.get("/usuarios", autenticarJWT, verificargerente, usuario.listar); // Listar (Gerente)
 
