@@ -30,7 +30,7 @@ model Produto {
   preco       Float
   quantidade  Int?             @default(0)
   imagem      String?
-  created_at   DateTime         @default(now())
+  createdAt   DateTime         @default(now())
   
   itens       PedidoProduto[]
 

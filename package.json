@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "npx nodemon server.js",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma migrate reset --force && prisma generate"
   },
   "keywords": [],
   "author": "",
