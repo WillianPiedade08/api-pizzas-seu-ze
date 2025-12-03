@@ -24,6 +24,22 @@ function ensureFunction(fn, name) {
     return fn;
 }
 
+// ======================================
+// Rotas de teste
+// ======================================
+router.get('/', (req, res) => {
+    res.json({
+        titulo: "Escola Modelo",
+        rotas: [
+            { professor: "/usuarios" },
+            { professor: "/usuarios/login" },
+            { turma: "/produtos" },
+            { atividade: "/pedidos" },
+            { atividade: "/pagamentos" },
+        ]
+    })
+})
+
 // ========================================
 // ROTAS DE USUÁRIO
 // ========================================
