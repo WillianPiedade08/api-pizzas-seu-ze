@@ -24,22 +24,6 @@ function ensureFunction(fn, name) {
     return fn;
 }
 
-// ======================================
-// Rotas de teste
-// ======================================
-rota.get('/', (req, res) => {
-    res.json({
-        titulo: "Pizzaria do seu Zé ",
-        rotas: [
-            { usuarios: "/usuarios" },
-            { login: "/usuarios/login" },
-            { produtos: "/produtos" },
-            { pedidos: "/pedidos" },
-            { pagamentos: "/pagamentos" },
-        ]
-    })
-})
-
 // ========================================
 // ROTAS DE USUÁRIO
 // ========================================
